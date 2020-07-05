@@ -4,7 +4,10 @@
   * @file           : main.c
   * @brief          : Firmware to read temperature sensors
   * @author			: 
+<<<<<<< HEAD
   * 
+=======
+>>>>>>> 6580ffa1efea7ccce58f070b74dbe3bfe29878a5
   *
   ******************************************************************************
   * @attention
