@@ -13,3 +13,6 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2020-07-05 16:49:55.193
 !MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY org.eclipse.cdt.core 1 0 2020-07-05 17:24:09.106
+!MESSAGE Indexed 'LM235_MEASURE_1' (27 sources, 104 headers) in 6.78 sec: 9,914 declarations; 57,739 references; 2 unresolved inclusions; 29 syntax errors; 145 unresolved names (0.21%)
