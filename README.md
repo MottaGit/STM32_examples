@@ -1,2 +1,1 @@
-# test-type
-
+# STM32 examples
