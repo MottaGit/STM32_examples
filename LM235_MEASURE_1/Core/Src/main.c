@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file           : main.c
   * @brief          : Firmware to read temperature sensors
-  * @author			: Gabriel Gosmann
+  * @author			: 
   *
   ******************************************************************************
   * @attention
