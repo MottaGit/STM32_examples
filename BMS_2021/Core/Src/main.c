@@ -69,7 +69,7 @@ static void MX_FDCAN1_Init(void);
 /* USER CODE BEGIN PFP */
 
 void Multiplex(void);
-void Range_Voltage(float);
+void Range_Temperature(float);
 
 /* USER CODE END PFP */
 
@@ -141,7 +141,7 @@ int main(void)
 		temp_sens[i][MuxState].ADC_raw = measurements[i];
 		temp_sens[i][MuxState].voltages = (temp_sens[i][MuxState].ADC_raw/4095.0);
 		temp_sens[i][MuxState].temp_celc = (temp_sens[i][MuxState].voltages/0.02)-45.9;
-		Range_Voltage(temp_sens[i][MuxState].temp_celc);
+		Range_Temperature(temp_sens[i][MuxState].temp_celc);
 	}
 
   }
@@ -462,9 +462,9 @@ void Multiplex()
 
 }
 
-void Range_Voltage(float cell_voltage)
+void Range_Temperature(float cell_temperature)
 {
-	if(cell_voltage >= 60)		//verifica se é maior que 60ºC - limite tolerável
+	if(cell_temperature >= 60)		//verifica se é maior que 60ºC - limite tolerável
 	{
 		HAL_GPIO_WritePin(T_ERROR_GPIO_Port, T_ERROR_Pin, GPIO_PIN_SET);		// led para erro em temp
 		HAL_GPIO_WritePin(TRIG_ERROR_GPIO_Port, TRIG_ERROR_Pin, GPIO_PIN_SET);	// abre o shutdown

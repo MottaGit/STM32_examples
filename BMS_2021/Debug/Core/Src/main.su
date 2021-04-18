@@ -6,6 +6,6 @@ main.c:328:13:MX_TIM7_Init	24	static
 main.c:364:13:MX_DMA_Init	16	static
 main.c:383:13:MX_GPIO_Init	40	static
 main.c:418:6:Multiplex	8	static
-main.c:465:6:Range_Voltage	16	static
+main.c:465:6:Range_Temperature	16	static
 main.c:479:6:HAL_TIM_PeriodElapsedCallback	16	static
 main.c:495:6:Error_Handler	8	static,ignoring_inline_asm

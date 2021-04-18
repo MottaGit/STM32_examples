@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  17 .debug_line   0000dc90  00000000  00000000  00057ecc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000d72c3  00000000  00000000  00065b5c  2**0
+ 18 .debug_str    000d72cb  00000000  00000000  00065b5c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  0013ce1f  2**0
+ 19 .comment      0000007b  00000000  00000000  0013ce27  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00005584  00000000  00000000  0013ce9c  2**2
+ 20 .debug_frame  00005584  00000000  00000000  0013cea4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -933,7 +933,7 @@ int main(void)
  8000b8c:	4403      	add	r3, r0
  8000b8e:	3308      	adds	r3, #8
  8000b90:	601d      	str	r5, [r3, #0]
-		Range_Voltage(temp_sens[i][MuxState].temp_celc);
+		Range_Temperature(temp_sens[i][MuxState].temp_celc);
  8000b92:	4b17      	ldr	r3, [pc, #92]	; (8000bf0 <main+0x198>)
  8000b94:	681b      	ldr	r3, [r3, #0]
  8000b96:	4817      	ldr	r0, [pc, #92]	; (8000bf4 <main+0x19c>)
@@ -952,7 +952,7 @@ int main(void)
  8000bb0:	3308      	adds	r3, #8
  8000bb2:	edd3 7a00 	vldr	s15, [r3]
  8000bb6:	eeb0 0a67 	vmov.f32	s0, s15
- 8000bba:	f000 fadf 	bl	800117c <Range_Voltage>
+ 8000bba:	f000 fadf 	bl	800117c <Range_Temperature>
 	for(int i = 0; i<3; i++){
  8000bbe:	687b      	ldr	r3, [r7, #4]
  8000bc0:	3301      	adds	r3, #1
@@ -1834,27 +1834,27 @@ void Multiplex()
  8001176:	bd80      	pop	{r7, pc}
  8001178:	20000158 	.word	0x20000158
 
-0800117c <Range_Voltage>:
+0800117c <Range_Temperature>:
 
-void Range_Voltage(float cell_voltage)
+void Range_Temperature(float cell_temperature)
 {
  800117c:	b580      	push	{r7, lr}
  800117e:	b082      	sub	sp, #8
  8001180:	af00      	add	r7, sp, #0
  8001182:	ed87 0a01 	vstr	s0, [r7, #4]
-	if(cell_voltage >= 60)		//verifica se é maior que 60ºC - limite tolerável
+	if(cell_temperature >= 60)		//verifica se é maior que 60ºC - limite tolerável
  8001186:	edd7 7a01 	vldr	s15, [r7, #4]
- 800118a:	ed9f 7a14 	vldr	s14, [pc, #80]	; 80011dc <Range_Voltage+0x60>
+ 800118a:	ed9f 7a14 	vldr	s14, [pc, #80]	; 80011dc <Range_Temperature+0x60>
  800118e:	eef4 7ac7 	vcmpe.f32	s15, s14
  8001192:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
- 8001196:	da00      	bge.n	800119a <Range_Voltage+0x1e>
+ 8001196:	da00      	bge.n	800119a <Range_Temperature+0x1e>
 		//Envia via Can menssagem de erro para temperatura > 60ºC
 		HAL_GPIO_WritePin(S_GPIO_Port, S_Pin, GPIO_PIN_RESET);
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, &TxData[0]);
 		HAL_GPIO_WritePin(S_GPIO_Port, S_Pin, GPIO_PIN_SET);
 	}
 }
- 8001198:	e01c      	b.n	80011d4 <Range_Voltage+0x58>
+ 8001198:	e01c      	b.n	80011d4 <Range_Temperature+0x58>
 		HAL_GPIO_WritePin(T_ERROR_GPIO_Port, T_ERROR_Pin, GPIO_PIN_SET);		// led para erro em temp
  800119a:	2201      	movs	r2, #1
  800119c:	2180      	movs	r1, #128	; 0x80
@@ -1868,17 +1868,17 @@ void Range_Voltage(float cell_voltage)
 		HAL_GPIO_WritePin(S_GPIO_Port, S_Pin, GPIO_PIN_RESET);
  80011b2:	2200      	movs	r2, #0
  80011b4:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 80011b8:	4809      	ldr	r0, [pc, #36]	; (80011e0 <Range_Voltage+0x64>)
+ 80011b8:	4809      	ldr	r0, [pc, #36]	; (80011e0 <Range_Temperature+0x64>)
  80011ba:	f002 fe77 	bl	8003eac <HAL_GPIO_WritePin>
 		HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, &TxData[0]);
- 80011be:	4a09      	ldr	r2, [pc, #36]	; (80011e4 <Range_Voltage+0x68>)
- 80011c0:	4909      	ldr	r1, [pc, #36]	; (80011e8 <Range_Voltage+0x6c>)
- 80011c2:	480a      	ldr	r0, [pc, #40]	; (80011ec <Range_Voltage+0x70>)
+ 80011be:	4a09      	ldr	r2, [pc, #36]	; (80011e4 <Range_Temperature+0x68>)
+ 80011c0:	4909      	ldr	r1, [pc, #36]	; (80011e8 <Range_Temperature+0x6c>)
+ 80011c2:	480a      	ldr	r0, [pc, #40]	; (80011ec <Range_Temperature+0x70>)
  80011c4:	f002 fbda 	bl	800397c <HAL_FDCAN_AddMessageToTxFifoQ>
 		HAL_GPIO_WritePin(S_GPIO_Port, S_Pin, GPIO_PIN_SET);
  80011c8:	2201      	movs	r2, #1
  80011ca:	f44f 4100 	mov.w	r1, #32768	; 0x8000
- 80011ce:	4804      	ldr	r0, [pc, #16]	; (80011e0 <Range_Voltage+0x64>)
+ 80011ce:	4804      	ldr	r0, [pc, #16]	; (80011e0 <Range_Temperature+0x64>)
  80011d0:	f002 fe6c 	bl	8003eac <HAL_GPIO_WritePin>
 }
  80011d4:	bf00      	nop
